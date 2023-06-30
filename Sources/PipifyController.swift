@@ -29,6 +29,12 @@ public final class PipifyController: NSObject, ObservableObject, AVPictureInPict
             pipController?.invalidatePlaybackState()
         }
     }
+
+    internal var controlsVisible: Bool = false {
+        didSet {
+            pipController?.setValue(controlsVisible ? 0 : 2, forKey: "controlsStyle")
+        }
+    }
     
     internal var progress: Double = 1 {
         didSet {
