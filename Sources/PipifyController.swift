@@ -30,9 +30,9 @@ public final class PipifyController: NSObject, ObservableObject, AVPictureInPict
         }
     }
 
-    internal var controlsVisible: Bool = false {
+    internal var controlsStyle: Int = 0 {
         didSet {
-            pipController?.setValue(controlsVisible ? 0 : 2, forKey: "controlsStyle")
+            pipController?.setValue(controlsStyle, forKey: "controlsStyle")
         }
     }
     

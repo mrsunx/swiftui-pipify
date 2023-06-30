@@ -64,6 +64,11 @@ public extension View {
     func pipBindProgress(progress: Binding<Double>) -> some View {
         modifier(PipifyProgressModifier(progress: progress))
     }
+
+    @warn_unqualified_access
+    func pipControlsStyle(_ controlsStyle: Int) -> some View {
+        modifier(PipifyControlStyleModifier(controlStyle: controlsStyle))
+    }
 }
 
 internal struct PipifyPlayPauseModifier: ViewModifier {
@@ -156,6 +161,19 @@ internal struct PipifyProgressModifier: ViewModifier {
             .onChange(of: progress) { newProgress in
                 assert(newProgress >= 0 && newProgress <= 1, "progress value must be between 0 and 1")
                 controller.progress = newProgress.clamped(to: 0...1)
+            }
+    }
+}
+
+internal struct PipifyControlStyleModifier: ViewModifier {
+    @EnvironmentObject var controller: PipifyController
+
+    let controlStyle: Int
+
+    func body(content: Content) -> some View {
+        content
+            .task {
+                controller.controlsStyle = controlStyle
             }
     }
 }

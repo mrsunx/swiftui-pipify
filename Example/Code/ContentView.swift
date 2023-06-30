@@ -37,8 +37,7 @@ struct ContentView: View {
                     Text("Example Three")
                         .foregroundColor(.red)
                         .padding()
-                        .onPipSkip { _ in }
-                        .onPipPlayPause { _ in }
+                        .pipControlsStyle(1)
                 }
             
             Button("Progress Bar") { isPresentedFour.toggle() }
