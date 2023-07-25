@@ -16,9 +16,12 @@ internal struct PipifyModifier<PipView: View>: ViewModifier {
         offscreenRendering: Bool
     ) {
         self._isPresented = isPresented
-        self.controller = PipifyController(isPresented: isPresented)
         self.pipContent = pipContent
         self.offscreenRendering = offscreenRendering
+
+        // 结局iPad不会释放的问题，使用单例
+        self.controller = PipifyController.shared
+        self.controller.setIsPresented(isPresented: isPresented)
     }
     
     func body(content: Content) -> some View {

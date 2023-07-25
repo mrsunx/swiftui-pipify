@@ -10,6 +10,8 @@ import os.log
 
 public final class PipifyController: NSObject, ObservableObject, AVPictureInPictureControllerDelegate,
                                        AVPictureInPictureSampleBufferPlaybackDelegate {
+
+    static let shared = PipifyController(isPresented: .constant(false))
     
     public static var isSupported: Bool {
         AVPictureInPictureController.isPictureInPictureSupported()
@@ -70,6 +72,10 @@ public final class PipifyController: NSObject, ObservableObject, AVPictureInPict
         // the audio session must be setup before the pip controller is created
         Self.setupAudioSession()
         setupController()
+    }
+
+    public func setIsPresented(isPresented: Binding<Bool>) {
+        _enabled = isPresented
     }
     
     private func setupController() {
